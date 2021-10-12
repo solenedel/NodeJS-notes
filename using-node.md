@@ -26,5 +26,38 @@ On the global object, we have access to:
  Many things in the window object cannot be accessed via node's global object. For example, DOM methods like `querySelector`. Node is used on the server side so interacting with the browser is not necessary. 
 
 
+## Modules and require
+
+To access code in a file A from another file B, we need to: 
+
+1. **require** file A inside file B: `const xyz = require('./fileA')`
+2. **export** the relevant code from file A: `module.exports = foo`
+
+What if we want to export multiple things from file A? 
+
+`module.exports = { foo, bar }`
+
+The require statement stays the same. The value of `xyz` will now be an object containing both foo and bar. To access them individually, we would use `xyz.foo` and `xyz.bar` .
+
+If we only want to import a specific thing, we can use object destructuring as follows:
+
+`const { foo } = require('./fileA')`
+
+In this case, the destructured `{ foo }` must have the exact **same name** as the corresponding `foo` in the file where it is initially declared. Using this method, we can difertly refer to `foo` in file B rather than `xyz.foo`.
+
+Likewise, we can selectively import `foo` and `bar` like: 
+
+`const { foo, bar } = require('./fileA')`
+
+
+## Node core modules
+
+Node has several built-in modules that can be required directly in any file.
+
+Examples:
+
+- The Operating System module: `const os = require('os')` 
+- The File System module: `const os = require('os')`
+
 
 
