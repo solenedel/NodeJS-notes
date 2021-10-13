@@ -65,5 +65,46 @@ The request object from createServer is an object with a huge amount of informat
 
 ### **the response object**
 
+The response object has several methods to help with sending a response. 
+
+- `setHeader` lets us give information (ex. content type) about the response
+- `write` lets us specify what content to send back
+- `end` marke the end of the response
+
+Inside the `createServer` callback function: 
+```
+  res.setHeader('Content-Type', 'text/html');
+  res.write('<p>Hello, world</p>'); // first line of html
+  res.write('<p>Hello again</p>'); // second line of html
+  res.end();
+```
+
+No need to include the `<body>` tag, it is automatically created, as is the `<head>` tag.
+This is not a realistic way to send html for a web page, instead we should have our html 
+pages already created in the project directory. We can use the file system again to send these html files to the brower in the response.
+
+## returning html pages
+
+We can create a folder called views which will contain all the html pages we need to send back from different requests. Let's create an index.html file inside views. 
+
+```
+// set header content type
+res.setHeader('Content-Type', 'text/html');
+
+// send an html file
+fs.readFile('./views/index.html', (err, data) => {
+  if (err) {
+    console.log(err);
+    res.end();
+  } else {
+    res.write(data);
+    res.end();
+    // shortcut: if only sending one thing to res.write, we can omit the write method and directly use res.end(data);
+  }
+});
+```
+
+
+
 
 
