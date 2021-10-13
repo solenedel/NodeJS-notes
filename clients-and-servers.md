@@ -45,15 +45,25 @@ server.listen(3000, 'localhost', () => {
 
 A **port number** represents a specific gateway or channel in the computer that a certain bit of software or server should communicate through. The different software (applications) on a computer that connect to the internet all run on different ports to keep information separate. A port is a bit like a door in the computer for communication between a software and the internet. 
 
-Our server we set up also needs its own port number to communicate through. A common port for local web development is 3000. This port should be fine to use as long as it doesn't clash with another program running on that port. 
+Our server we set up also needs its own port number to communicate through. A common port for local web development is **3000**. This port should be fine to use as long as it doesn't clash with another program running on that port. 
 
-While we are running a server with node, the terminal should not display any prompt or accept new commands. This means the server is running and listening for requests. To stop the server: CTRL + C . Server-side logs will not show in the browser's console, as it is only made for client-side logs.
+While we are running a server with node, the terminal should not display any prompt or accept new commands. This means the server is running and listening for requests. To stop the server: **CTRL + C** . We need to stop and restart the server every time there is a change to the server file. 
+
+Server-side logs will not show in the browser's console, which is only for client-side logs.
 
 To see our application in the browser, we type `localhost:3000` in the address bar. At this point we will see that a request has been made but there is no response sent back from the server to the browser. 
 
 
 ## Sending a response to the browser 
 
+
+### **the request object**
+
+The request object from createServer is an object with a huge amount of information. Notable ones are the url (`req.url`) and the type of request, or HTTP method (`req.method`). If we log these to the console and go to `localhost:3000` we can see that the url is **/** and the method is **GET**.
+
+/ is the **root** of the website- the point in the url that comes just after `localhost:3000`. It is basically the 'main page' of a website. If we went to `localhost:3000/about`, the url would be /about. 
+
+### **the response object**
 
 
 
