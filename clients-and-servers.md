@@ -137,8 +137,65 @@ const server = http.createServer((req, res) => {
   }
 
 });
+```
 
 
+
+
+## Status codes
+
+The **status code** describes the type of response sent to the browser, and how successful the request was. 
+
+### common status codes
+- 200 - OK (successful, no issues)
+- 301 - Resource was moved permanently
+- 404 - the resource was not found
+- 500 - internal server error
+
+
+### status code ranges
+- 100 range - informational responses (for the browser)
+- 200 range - successful responses
+- 300 range - redirections
+- 400 range - user or client errors (front-end)
+- 500 range - server errors (back-end)
+
+We can set the status codes of responses manually using `res.statusCode`.
+
+```
+switch(req.url) {
+    case '/': 
+      path += 'index.html';
+      res.statusCode === 200;
+      break;
+    case '/about': 
+      path += 'about.html';
+      res.statusCode === 200;
+      break;
+    default:
+      path += '404.html';
+      res.statusCode === 404;
+      break;
+  }
+  ```
+
+In the browser's dev tools, go to the Network tab and navigate between pages to see the status codes show up in the table. 
+
+## Redirects
+
+Let's say we changed the url of /about-me to /about. Now, if other websites are linking to the old /about-me, we need to redirect the user to go to /about. 
+
+```
+  case '/about': 
+      path += 'about.html';
+      res.statusCode === 200;
+      break;
+  case '/about-me': 
+      res.statusCode === 301; // permanent redirect
+      res.setHeader('Location', '/about');
+      res.end();
+      break;
+```
 
 
 
