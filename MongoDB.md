@@ -89,6 +89,77 @@ mongoose.connect(dbURI);
 The connect() method takes the connection string as an argument. We can pass a second argument, an options object, to stop the deprecatin warnings (optional). 
 `mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });`
 
+mongoose.connect() is asynchronous and returns a promise, so we can chain the then() method to specify what will run when the connection is complete. 
+
+```
+mongoose.connect(dbURI)
+        .then((result) => console.log('connected to db'))
+        .catch((err) => console.log(err));
+```
+
+We don't want our server to listen for requests until the database connection has been established. If a user requests a page that uses data from the database, they wouldn't be able to see that data until the connection with the database has been made. To implement this, we can move the `app.listen()` method to be inside the then() method like so: 
+
+```
+mongoose.connect(dbURI)
+        .then((result) => app.listen(3000))
+        .catch((err) => console.log(err));
+```
+The server will now only be listening once the database connection has been made. 
+
+
+## Creating the schema and model for the Blog data
+
+In the main project directory, create a folder called `models`. Inside it, create a file `blog.js`.
+
+Inside blog.js: 
+
+```
+const mongoos = require('mongoose');
+const Schema = mongoose.Schema();
+
+ // create new instance of Schema object
+const blogSchema = new Schema({
+  title: {
+    type: string, 
+    required: true
+  }, 
+  snippet {
+    type: string, 
+    required: true
+  }, 
+  body {
+    type: string, 
+    required: true
+  }
+}
+
+
+);
+```
+
+Schema is a constructor function. It takes in an object as an argument, which describes the structure of the documents we want to store in the Blogs collection. We can pass a second argument to the constructor, which is like an options object. 
+
+```
+const blogSchema = new Schema({ ... }, { timestamps: true });
+```
+
+Setting timestamps to true automatically generates timestamp properties on our blog documents. In the future, everytime we create or update a blog document, it will assign timestamps to them. 
+
+Now, let's create the model based on the blogSchema. The model surrounds the schema and provides an interface to communicate with the DB collection. Typically, models start with a capital letter. 
+
+```
+// below schema code:
+
+const Blog = mongoose.model('Blog', blogSchema)
+```
+
+The first argument for model() is the name of the model. The name is important because mongoose will **pluralise the name** and then look for that collection (Blogs) inside the DB.
+
+The second argument is the schema we want to base the model on. 
+
+Now, we can export the Blog model so we can use it elsewhere:
+`module.exports = Blog;`
+
 
 
 
