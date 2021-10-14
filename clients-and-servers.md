@@ -104,6 +104,42 @@ fs.readFile('./views/index.html', (err, data) => {
 });
 ```
 
+## basic routing
+
+At this point, whatever route we go to: /, /about, /blogs ... we always get back the same index.html page. If a user goes to /about, we want to send the about.html page. If a user goes to a page that doesn't exist, we want to send back a 404 page. 
+
+```
+const server = http.createServer((req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+
+  let path = './views/';  // all html pages are in the views folder
+
+  switch(req.url) {
+    case '/': 
+      path += 'index.html';
+      break;
+    case '/about': 
+      path += 'about.html';
+      break;
+    default:
+      path += '404.html';
+      break;
+  }
+
+
+  fs.readFile(path, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.end();
+    } else {
+      res.end(data);
+    }
+  }
+
+});
+
+
+
 
 
 
