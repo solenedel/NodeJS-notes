@@ -50,9 +50,46 @@ Back to our app.js, at the top of the file, create a new variable:
 
 `const dbURI = [paste the connection string];`
 
-We will connect to MongoDB using this connection string. We will need to replace the dummy values in the connection string with the user's credentials.
-
-
-## Using Mongoose to interact with the database
+We will connect to MongoDB using this connection string. We will need to replace the dummy values in the connection string with the user's credentials, and the name of the database (to replace `test`).
 
 We could connect using the plain MongoDB API package, and make queries to the database with the same package. However this can get a bit verbose, so we will use **Mongoose** to connect and interact with the database. 
+
+Mongoose is an **ODM (Object Document Mapping)** library. That means it wraps the standard MongoDB API and provides a much easier way to communicate with the database. It does this by allowing us to create simple data models which have DB query methods to create, update and delete database documents. 
+
+## Schemas and Models
+
+In Mongoose, we make a **schema** to describe the structure of a data type / document. The schema describes the properties and property types they should have. 
+
+Examples:
+
+**User Schema**
+- name (string), required
+- age (number)
+- bio (string), required
+
+**Blog Schema**
+- title (string), required
+- body (string), required
+(it will also have an automatically generated id)
+
+The structure of documents stored in the respective collections of the database will follow their schema. After creating the schema, we create a **model** based on a specific schema. The model is what allows us to communicate with a particular database collection. For example, the Blog Model will have methods we can use to save, update, delete or read data from the Blogs Collection. 
+
+## Connecting to the DB with Mongoose
+
+First, install Mongoose `npm i mongoose`. 
+
+```
+const mongoose = require('mongoose');
+
+// const dpURI = connection string
+
+mongoose.connect(dbURI);
+```
+
+The connect() method takes the connection string as an argument. We can pass a second argument, an options object, to stop the deprecatin warnings (optional). 
+`mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });`
+
+
+
+
+
