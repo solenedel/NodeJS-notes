@@ -6,7 +6,7 @@ When we type the domain name in the browser, it will look up the ip address of t
 
 In node, we write code to manually create a server and listen for requests coming in from the browser. 
 
-**💡 NOTE: The techniques in this document use vanilla node.js (without Express or any other frameworks). To skip to using Express, see the Express notes.**
+**💡 NOTE: The techniques in this document use core node.js (without Express or any other frameworks). To skip to using Express, see the Express notes.**
 
 
 ## creating a server using node
