@@ -25,3 +25,34 @@ The id of a document is unique and automatically generated.
 From our code, we could connect to a collection and then save/read/update/delete documents inside it.  
 
 
+## Setting up MongoDB with Atlas
+
+There are several ways to use MongoDB. We can either install it locally on our computer, or we can use a cload database that is already hosted, and easier to manage. We will use the cloud service called **MongoDB Atlas** (https://www.mongodb.com/cloud/atlas).
+
+Once logged in, create a free cluster (choose the default options for provider and region) and give it a name. The cluster will take a few minutes to be created. 
+
+Once created, click on **browse collections** > **add my own data** and fill in the name of the database and collection. 
+
+Then, go to the **Database Access** tab on the left and **add a new database user**. Fill in the name and password for the new user. Give read and write access to any database. Only valid users that we declare can access the database. 
+
+Go back to the Database tab and for the cluster, click on **connect**. 
+
+1. Setup connection security
+  - select "add your current IP Address"
+
+2. Choose a connection method
+  - select "connect to your application"
+
+3. Connect
+  - copy the connection string
+
+Back to our app.js, at the top of the file, create a new variable:
+
+`const dbURI = [paste the connection string];`
+
+We will connect to MongoDB using this connection string. We will need to replace the dummy values in the connection string with the user's credentials.
+
+
+## Using Mongoose to interact with the database
+
+We could connect using the plain MongoDB API package, and make queries to the database with the same package. However this can get a bit verbose, so we will use **Mongoose** to connect and interact with the database. 
