@@ -38,7 +38,9 @@ OR: we only need to require locally installed packages??
 
 ### **Lodash**
 
-Lodash provides various different methods.
+Lodash provides various different methods such as:
+- generating a random number with `random()`
+- allowing a function to be run only **once** with `once()`
 
 After installing it, we need to require the library at the top of each file that uses it. 
 
@@ -46,8 +48,18 @@ After installing it, we need to require the library at the top of each file that
 
 It's common practice is to denote lodash with an underscore _ .
 
+To use a method from lodash: `_.methodName()`
+
 ## the node_modules folder
 
-When we intall a local package into the project, a folder called `node_modules` is created in the main project directory. All the different files needed for that package are contained inside node_modules. We never need to directly go into this folder. 
+When we install a local package into the project, a folder called `node_modules` is created in the main project directory. All the different files needed for that package are contained inside node_modules. We never need to directly go into this folder.
+
+The package.json file allows us to easily share project code with others. node_modules is a very large folder and should never be committed to GitHub (it should be **git ignored**). Instead, we can simply upload the package.json file to GitHub. 
+
+Then, once the project is opened on someone else's computer, they can simply `npm install` to generate the node_modules folder locally, using the package.json as a reference for what packages and versions to install. 
+
+
+
+
 
 
