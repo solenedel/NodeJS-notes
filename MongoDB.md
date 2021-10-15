@@ -207,3 +207,35 @@ app.get('/all-blogs', (req, res) => {
 ```
 
 Going to the route, we see an array of objects, where each object represents a blog document. Note that the find() method is directly on the Blog object, not on a particular blog instance like when we were saving a new blog to the database. 
+
+To find a single blog from the collection:
+
+```
+app.get('/single-blog', (req, res) => {
+  Blog.findById('36r4298hkjhbdsk423')
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+```
+
+In the database we can see the id of each blog post as an ObjectId. It is not stored as a string, but Mongoose handles the conversion into a string when needed. This means we can pass a string to `findById()`.
+
+Ideally, we don't want to have routes like /single-blog and /all-blogs, instead we want these routes to be incorporated in our existing routes where we want to display the data (blogs). 
+
+```
+app.get('/blogs', (req, res) => {
+  Blog.find().sort({ createdAt: -1 });
+    .then((result) => {
+     (example uses EJS views, what is the react version)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+```
+
+the createdAt set to -1 will sort the blogs from newest first.
