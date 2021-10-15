@@ -52,6 +52,8 @@ While we are running a server with node, the terminal should not display any pro
 
 Server-side logs will not show in the browser's console, which is only for client-side logs.
 
+Also note that js scripts linked in the body of an html page will not run on the server-side, but on the client-side.
+
 To see our application in the browser, we type `localhost:3000` in the address bar. At this point we will see that a request has been made but there is no response sent back from the server to the browser. 
 
 

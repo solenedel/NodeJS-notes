@@ -107,12 +107,29 @@ The colon specifies that id is a route parameter, so that Express does not liter
 The `req.params` property is an object containing properties mapped to the named route parameters. For example, if you have the route /blogs/:id, then the 'id' property is available as req.params.id.
 
 
+## DELETE requests
+- deleting data from the database
+
+⚠️
+(deleting from the front-end - solution uses vanilla JS and EJS.)
+(Video 10 of tutorial, last section)
+
+
+Deleting on the server side:
+
+```
+app.delete('/blogs/:id', (req, res) => {
+  const id = req.params.id;
+  Blog.findByIdAndDelete(id)
+    .then((result) => {
+      res.redirect('/blogs');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+```
 
 
 ## PUT requests
 - update existing data in the database
-
-## DELETE requests
-- deleting data from the database
-
-
