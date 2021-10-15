@@ -55,6 +55,59 @@ In the server-side console, req.body looks like:
 
 If we were not using the urlencoded middleware, req.body would be undefined.
 
+In order to save the incoming data to the database, we need to create a new instance of Blog. 
+
+```
+app.post('/blogs', (req, res) => {
+  const blog = new Blog(req.body);
+  blog.save()
+    .then((result) => {
+      res.redirect('/blogs');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+```
+
+We should now see a newly posted blog as a document in the database. 
+
+
+## Route parameters
+
+A **route paramater** is the part of a route that is variable and may change. For example, in this route: `localhost:3000/blogs/:id` the `:id` part is the route parameter. In the browser, examples of this route could look like: 
+- `localhost:3000/blogs/15`
+- `localhost:3000/blogs/8`
+- `localhost:3000/blogs/hello`
+
+We need a way to extract the route parameter from a URL so that we can use it. 
+
+To demonstrate this, we want the title of each blog in the /blogs page to link to that specific blog. Each blog has a unique id (as seen in each document in the collection). That id can be accessed in `blog._id`. 
+
+```
+<a href=`/blogs/${blog._id}`>
+```
+
+Handle the get request for each blog: 
+```
+app.get('/blogs/:id', (req, res) => {
+  const id = req.params.id;
+  Blog.findById(id)
+    .then((result) => {
+      ⚠️ (RENDER VIEW - EJS) ⚠️
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+```
+
+The colon specifies that id is a route parameter, so that Express does not literally look for a route called /blogs/id. in `req.params.id`, the `id` part should correspond to the route parameter (but without the preceding colon).
+
+The `req.params` property is an object containing properties mapped to the named route parameters. For example, if you have the route /blogs/:id, then the 'id' property is available as req.params.id.
+
+
+
 
 ## PUT requests
 - update existing data in the database
