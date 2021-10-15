@@ -162,5 +162,48 @@ Now, we can export the Blog model so we can use it elsewhere:
 
 
 
+## Getting and saving data
 
+Once the model and schema have been set up, we can start making some routes that will involve data from the database. First we need to require the Blog model in app.js:
+`const Blog = require('./models/blog')`
 
+In the app.js file, let's add some routes: 
+
+```
+app.get('/add-blog', (req, res) => {
+
+  // create a new instance of the blog model
+  const blog = new Blog({
+    title: 'new blog',
+    snippet: 'about my new blog',
+    body: 'lorem ipsum'
+  });  
+
+  // save to database (asynchronous)
+  blog.save()
+    .then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+```
+
+If we then go to the /add-blog route, we see a blog object that was created (including the id and the timestamps). The new blog document can now be seen in MongoDB Atlas in the Blogs collection.
+
+We can retrieve all the blogs from a collection using the `find()` method. 
+
+```
+app.get('/all-blogs', (req, res) => {
+  Blog.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+```
+
+Going to the route, we see an array of objects, where each object represents a blog document. Note that the find() method is directly on the Blog object, not on a particular blog instance like when we were saving a new blog to the database. 
