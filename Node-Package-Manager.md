@@ -32,9 +32,9 @@ Nodemon is a package that helps us create a live-reload server to speed up devel
 
 To run the server with nodemon: `nodemon server` (if the file we run is server.js)
 
-**TO CONFIRM:**
-We don't need to require Nodemon at the top of a file in order to run the server with it. 
-OR: we only need to require locally installed packages??
+**NOTES / BUGS**
+- if the Nodemon command does not work, it is likely something to do with local vs global installation. Nodemon can be run from node_modules (locally) with the command `npx nodemon`.
+- Also make sure there is a start script with nodemon in package.json
 
 ### **Lodash**
 
