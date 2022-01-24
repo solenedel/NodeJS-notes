@@ -30,6 +30,8 @@ The `--save` flag ensures that the package is saved into the project's dependenc
 
 Nodemon is a package that helps us create a live-reload server to speed up development without having to stop and restart the server. 
 
+Install the package globally:  `npm i -g nodemon`
+
 To run the server with nodemon: `nodemon server` (if the file we run is server.js)
 
 **NOTES / BUGS**
